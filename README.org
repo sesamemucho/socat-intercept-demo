@@ -1,0 +1,4 @@
+* socat-intercept-demo
+Show how to use socat to interface between serial port and UDP input/output port pair
+
+The script udp_interceptor.py sits across a bidirectional UPD data path.
