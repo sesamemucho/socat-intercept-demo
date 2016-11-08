@@ -1,4 +1,34 @@
 * socat-intercept-demo
 Show how to use socat to interface between serial port and UDP input/output port pair
 
-The script udp_interceptor.py sits across a bidirectional UPD data path.
+The script udp_interceptor.py sits across a bidirectional UPD data
+path. This script:
+
+   Listens on port 16000 and forwards that data to port 16100.
+   Listens on port 16101 and forwards that data to port 16001.
+
+
+ LHS         +-----------------+           RHS
+             |                 |
+      ------>|16000>>>>>>>>>>>>|--------> 16100
+             |                 |
+ 16001<------|<<<<<<<<<<<<16101|<--------
+             |                 |
+             +-----------------+
+
+
+lhs.sh emulates a serial port on the left-hand side (LHS). Data coming
+out of the LHS 'serial port' is sent to port 16000, and data written
+to port 16001 is sent into the LHS 'serial port'.
+
+Likewise, rhs.sh emulates a serial port on the right-hand side
+(RHS). Data coming out of the RHS 'serial port' is sent to port 16101,
+and data written to port 16000 is sent into the RHS 'serial port'.
+
+The *hs.sh script communicate with the user through stdin and stdout.
+
+** How to run it
+
+All three parts write to stdout, and the *hs.sh scripts read from
+stdin. The clearest way to work it is to run each script in a separate
+terminal window.
